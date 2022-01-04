@@ -24,57 +24,63 @@ let user = {
   username : "bast",
   password : "pass"
 }
+let open_login_menu = () => {
+  module.innerHTML = '<form class="module-form-connexion" action=""><label for="username">username</label><input class="username-input" type="text" name="username"><label for="password">password</label><input class="password-input" type="password" name="password"><button class="submit-form-connexion">envoyer</button></form><button class="module-open-signup">pas de compte</button>'
+  let formConnexion = document.querySelector(".module-form-connexion")
+  let form = document.querySelector(".module-form-connexion")
+  let usernameInput = document.querySelector(".username-input")
+  let passwordInput = document.querySelector(".password-input")
+  console.log("username = " + user.username)
+  console.log("password = " + user.password)
+  formConnexion.addEventListener("click", e => {
+    e.preventDefault()
+    if(e.target.classList.contains("submit-form-connexion")){
+      console.log(user.username)
+      console.log(usernameInput.value)
+      console.log(user.password)
+      console.log(passwordInput.value)
+      if(usernameInput.value == user.username && passwordInput.value == user.password) {
+        console.log("bienvenu")
+        module.innerHTML = '<button>obtenir l\'activité du jour</button><ul class="liste-activites"></ul>'
+        let listeActivites = document.querySelector(".liste-activites")
+      registeredActivites.forEach(activite => {
+        listeActivites.innerHTML =  `<p>${activite.titre}</p>` 
+      })
+      }
+    }
+
+  })
+  //Evenement click sur le formualaire de connexion
+  formConnexion.addEventListener("click", e => {
+    e.preventDefault()
+    if(e.target.classList.contains("submit-form-connexion")){
+      console.log(user.username)
+      console.log(usernameInput.value)
+      console.log(user.password)
+      console.log(passwordInput.value)
+      if(usernameInput.value == user.username && passwordInput.value == user.password) {
+        console.log("bienvenu")
+        module.innerHTML = '<button>obtenir l\'activité du jour</button><ul class="liste-activites"></ul>'
+        let listeActivites = document.querySelector(".liste-activites")
+      registeredActivites.forEach(activite => {
+        if(activite.prix) {
+        listeActivites.innerHTML += `<p>${activite.titre}</p><p>${activite.prix}</p><p>${activite.description}</p>` 
+      }else{
+        listeActivites.innerHTML += `<p>${activite.titre}</p><p>Gratuit</p><p>${activite.description}</p>`
+      }
+      })
+      }else{
+
+      }
+    }
+  })
+}
 console.log(module)
 module.addEventListener("click", e => {
   e.preventDefault();
   if(e.target.classList.contains('module-open')) {
-    module.innerHTML = '<form class="module-form-connexion" action=""><label for="username">username</label><input class="username-input" type="text" name="username"><label for="password">password</label><input class="password-input" type="password" name="password"><button class="submit-form-connexion">envoyer</button></form><button class="module-open-signup">pas de compte</button>'
-    let formConnexion = document.querySelector(".module-form-connexion")
-    let form = document.querySelector(".module-form-connexion")
-    let usernameInput = document.querySelector(".username-input")
-    let passwordInput = document.querySelector(".password-input")
-    console.log("username = " + user.username)
-    console.log("password = " + user.password)
-    formConnexion.addEventListener("click", e => {
-      e.preventDefault()
-      if(e.target.classList.contains("submit-form-connexion")){
-        console.log(user.username)
-        console.log(usernameInput.value)
-        console.log(user.password)
-        console.log(passwordInput.value)
-        if(usernameInput.value == user.username && passwordInput.value == user.password) {
-          console.log("bienvenu")
-          module.innerHTML = '<button>obtenir l\'activité du jour</button><ul class="liste-activites"></ul>'
-          let listeActivites = document.querySelector(".liste-activites")
-        registeredActivites.forEach(activite => {
-          listeActivites.innerHTML =  `<p>${activite.titre}</p>` 
-        })
-        }
-      }
+    open_login_menu()
 
-    })
-    //Evenement click sur le formualaire de connexion
-    formConnexion.addEventListener("click", e => {
-      e.preventDefault()
-      if(e.target.classList.contains("submit-form-connexion")){
-        console.log(user.username)
-        console.log(usernameInput.value)
-        console.log(user.password)
-        console.log(passwordInput.value)
-        if(usernameInput.value == user.username && passwordInput.value == user.password) {
-          console.log("bienvenu")
-          module.innerHTML = '<button>obtenir l\'activité du jour</button><ul class="liste-activites"></ul>'
-          let listeActivites = document.querySelector(".liste-activites")
-        registeredActivites.forEach(activite => {
-          if(activite.prix) {
-          listeActivites.innerHTML += `<p>${activite.titre}</p><p>${activite.prix}</p><p>${activite.description}</p>` 
-        }else{
-          listeActivites.innerHTML += `<p>${activite.titre}</p><p>Gratuit</p><p>${activite.description}</p>`
-        }
-        })
-        }
-      }
-    })
   }
   if(e.target.classList.contains("module-open-signup")) {
     module.innerHTML = '<form class="module-form-signup" action=""><label for="username">username</label><input class="username-input" type="text" name="username"><label for="password">password</label><input class="password-input" type="password" name="password"><label for="email">email</label><input class="email-input" name="email"><button class="submit-form-signup">envoyer</button></form>'
@@ -88,6 +94,7 @@ module.addEventListener("click", e => {
         username : usernameInput.value,
         password : passwordInput.value
       }
+      open_login_menu()
     }
   })
   }
